@@ -11,15 +11,14 @@
 
 4. Set environmental variables for your `GITHUB_USERNAME` and `GITHUB_PASSWORD`
 
+```
+cat << EOF >> ~/.bash_profile
+export GITHUB_USERNAME='yourgithubemail@youremailhost.com'
+export GITHUB_PASSWORD='yourgithubpassword'
+EOF
 
-    `vim ~/.bash_profile`
-
-    `echo "export GITHUB_USERNAME='yourgithubemail@youremailhost.com'" >> ~/.bash_profile`
-
-    `echo "export GITHUB_PASSWORD='yourgithubpassword'" > ~/.bash_profile`
-
-    `source ~/.bash_profile`
-
+source ~/.bash_profile
+```
 
 5. Modify `git_print.yml` with a repo, user, filter, and assignee you'd like to print issue changes for.
 
