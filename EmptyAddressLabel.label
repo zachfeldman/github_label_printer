@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<DieCutLabel Version="8.0" Units="twips">
-  <PaperOrientation>Landscape</PaperOrientation>
-  <Id>Address</Id>
-  <PaperName>30252 Address</PaperName>
-  <DrawCommands>
-    <RoundRectangle X="0" Y="0" Width="1581" Height="5040" Rx="270" Ry="270"/>
-  </DrawCommands>
-</DieCutLabel>

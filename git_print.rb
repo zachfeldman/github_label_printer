@@ -13,7 +13,7 @@ settings = YAML.load_file(File.open('git_print.yml'))
 
 def print_label(line_one, line_two, line_three, line_four)
   dymo = Appscript.app("DYMO Label")
-  dymo.openLabel(nil, :in => "EmptyAddressLabel.label")
+  dymo.openLabel(nil, :in => "blankaddresslabel.label")
   dymo.addAddress(nil)
   dymo.print_objects.items[-1].content.set("#{line_one}\n#{line_two}\n#{line_three}\n#{line_four}")
   dymo.elements_[-1].xPosition.set(20)
@@ -22,6 +22,7 @@ def print_label(line_one, line_two, line_three, line_four)
   dymo.elements_[-1].width.set(240)
   dymo.redrawLabel(nil)
   dymo.printLabel2(nil)
+  dymo.quit
 end
 
 def print_latest(settings, first_run)
@@ -46,8 +47,8 @@ def print_latest(settings, first_run)
   else
     puts "github fetch empty"
   end
-  sleep(10)
-  print_latest(settings, false)
+  #sleep(10)
+  #print_latest(settings, false)
 end
 
 def github_query(settings)

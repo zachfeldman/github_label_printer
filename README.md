@@ -26,9 +26,7 @@ source ~/.bash_profile
 
     `rake db:migrate`
 
-6. Start the DYMO Labelmaker software
-
-7. Run the script, `ruby git_print.rb`, to start getting labels printed every time an issue with that assignee is modified!
+7. Run the script, `ruby git_print.rb`, to start getting labels printed every time an issue with that assignee is modified! The script must be running for this to work.
 
 
 ## Contributing
