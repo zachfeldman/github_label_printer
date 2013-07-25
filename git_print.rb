@@ -26,25 +26,41 @@ end
 
 def print_latest(settings, first_run)
   puts "git_print is running..." unless first_run == false
-  github = Github.new login: ENV['GITHUB_USERNAME'], password: ENV['GITHUB_PASSWORD']
-  issues = github.issues.list(repo: settings["repo"], user: settings["user"], filter: settings["filter"], assignee: settings["assignee"])
-  issues.body.each do |issue|
-    number_milestone = "##{issue.number} #{('MS-'+ issue.milestone.title) if !issue.milestone.nil? && !issue.milestone.title.nil?}"
-    begin
-      db_issue = Issue.where(:number => issue.number).first
-      if db_issue.updated_at.in_time_zone(-5) < issue.updated_at.in_time_zone(-5)
+  issues = github_query(settings)
+  unless issues.nil?
+    issues.body.each do |issue|
+      number_milestone = "##{issue.number} #{('MS-'+ issue.milestone.title) if !issue.milestone.nil? && !issue.milestone.title.nil?}"
+      begin
+        db_issue = Issue.where(:number => issue.number).first
+        if db_issue.updated_at.in_time_zone(-5) < issue.updated_at.in_time_zone(-5)
+          print_label("TO: "+issue.assignee.login, number_milestone, issue.title, Chronic.parse(issue.updated_at).in_time_zone(-5).strftime("%m/%d/%Y at%l:%M %p")) unless first_run
+          db_issue.updated_at = issue.updated_at.in_time_zone(-5)
+          db_issue.save
+        end
+      rescue
         print_label("TO: "+issue.assignee.login, number_milestone, issue.title, Chronic.parse(issue.updated_at).in_time_zone(-5).strftime("%m/%d/%Y at%l:%M %p")) unless first_run
-        db_issue.updated_at = issue.updated_at.in_time_zone(-5)
-        db_issue.save
+        Issue.create(number: issue.number, title: issue.title, body: issue.body, updated_at: Chronic.parse(issue.updated_at))
       end
-    rescue
-      print_label("TO: "+issue.assignee.login, number_milestone, issue.title, Chronic.parse(issue.updated_at).in_time_zone(-5).strftime("%m/%d/%Y at%l:%M %p")) unless first_run
-      Issue.create(number: issue.number, title: issue.title, body: issue.body, updated_at: Chronic.parse(issue.updated_at))
     end
+    puts "github fetch complete"
+  else
+    puts "github fetch empty"
   end
-  puts "github fetch complete"
   sleep(10)
   print_latest(settings, false)
 end
 
+def github_query(settings)
+  begin
+    github = Github.new login: ENV['GITHUB_USERNAME'], password: ENV['GITHUB_PASSWORD']
+    issues = github.issues.list(repo: settings["repo"], user: settings["user"], filter: settings["filter"], assignee: settings["assignee"])
+  rescue
+    sleep(10)
+    github_query(settings)
+  end
+  issues
+end
+
 print_latest(settings, true)
+
+

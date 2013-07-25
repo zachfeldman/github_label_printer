@@ -23,6 +23,10 @@
 
 5. Modify `git_print.yml` with a repo, user, filter, and assignee you'd like to print issue changes for.
 
+6. Migrate the database:
+
+    `rake db:migrate`
+
 6. Start the DYMO Labelmaker software
 
 7. Run the script, `ruby git_print.rb`, to start getting labels printed every time an issue with that assignee is modified!
