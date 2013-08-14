@@ -47,8 +47,8 @@ def print_latest(settings, first_run)
   else
     puts "github fetch empty"
   end
-  #sleep(10)
-  #print_latest(settings, false)
+  sleep(10)
+  print_latest(settings, false)
 end
 
 def github_query(settings)

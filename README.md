@@ -11,14 +11,14 @@
 
 4. Set environmental variables for your `GITHUB_USERNAME` and `GITHUB_PASSWORD`
 
-```
-cat << EOF >> ~/.bash_profile
-export GITHUB_USERNAME='yourgithubemail@youremailhost.com'
-export GITHUB_PASSWORD='yourgithubpassword'
-EOF
+  ```
+  cat << EOF >> ~/.bash_profile
+  export GITHUB_USERNAME='yourgithubemail@youremailhost.com'
+  export GITHUB_PASSWORD='yourgithubpassword'
+  EOF
 
-source ~/.bash_profile
-```
+  source ~/.bash_profile
+  ```
 
 5. Modify `git_print.yml` with a repo, user, filter, and assignee you'd like to print issue changes for.
 
@@ -32,6 +32,11 @@ source ~/.bash_profile
 ## Contributing
 
 Forks and contributions are welcome! Just send me a PR and I'll consider including it.
+
+## Related
+
+Have your new GitHub issues sent to you as a text message using the Twilio API! use [git_text](https://github.com/PaperkraftMike/git_text) by [PaperkraftMike](https://github.com/PaperkraftMike)
+
 
 ## Credits
 
